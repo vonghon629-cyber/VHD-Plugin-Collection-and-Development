@@ -1,0 +1,22 @@
+;;;************CHIA ĞÔìI TİÕòNG THAÌNH CAìC PHÂÌN BÃÌNG NHAU*************************
+(defun c:CL(/ e ename p1 p2 x1 y1 x2 y2 sk i )
+(setq e (entget(setq ename (car(entsel "\nChoòn ğoaòn thãÒng câÌn chia:"))))		
+		x1 (car (setq p1 (getpoint "\nChoòn ğiêÒm ğâÌu:")))
+		y1 (cadr p1)
+		x2 (car (setq p2 (getpoint p1 "\nChoòn ğiêÒm cuôìi:")))
+		y2 (cadr p2)
+		sk (getint "\nSôì khoaÒng câÌn chia:")
+		i 0
+)
+(command "_Pline")
+(command (cdr (assoc '10 e)))
+(repeat (+ 1 sk)
+	(command (setq points 
+	(list (+ x1 (* i (/ (- x2 x1) sk)))
+		  (+ y1 (* i (/ (- y2 y1) sk)))
+			0)))
+		(setq i (1+ i))
+		)
+(command (cdr (assoc '11 e)) "")
+(entdel ename)		
+)

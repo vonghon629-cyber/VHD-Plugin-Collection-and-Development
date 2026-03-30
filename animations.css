@@ -1,0 +1,404 @@
+/* =====================================================
+   PluginVault — GSAP Cinematic Animations v3.0
+   Inspired by jungheonlee.com aesthetic
+   ===================================================== */
+
+/* --- Lenis Smooth Scroll (no wrapper needed) --- */
+html.lenis, html.lenis body {
+    height: auto;
+}
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+/* --- Preloader: Cinematic Wipe --- */
+.preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-primary);
+}
+
+.preloader-counter {
+    font-family: var(--font-mono);
+    font-size: clamp(48px, 10vw, 120px);
+    font-weight: 700;
+    color: var(--text-primary);
+    opacity: 0.1;
+    letter-spacing: -4px;
+}
+
+.preloader-wipe {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+}
+
+.preloader-wipe .wipe-col {
+    flex: 1;
+    background: var(--bg-primary);
+    transform-origin: top;
+}
+
+/* --- Noise Grain Film Overlay --- */
+.noise-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainDrift 0.4s steps(4) infinite;
+}
+
+@keyframes grainDrift {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(-2px,3px); }
+    50% { transform: translate(3px,-2px); }
+    75% { transform: translate(-3px,-1px); }
+    100% { transform: translate(0,0); }
+}
+
+/* --- Scroll Progress Line --- */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--gradient-primary);
+    z-index: 10001;
+    transform-origin: left;
+    box-shadow: 0 0 12px rgba(99,102,241,0.4);
+}
+
+/* --- Hero Cinematic --- */
+.hero-title .line {
+    overflow: hidden;
+    display: block;
+    perspective: 600px;
+}
+
+.hero-title .line-inner {
+    display: block;
+    transform: translateY(110%) rotateX(-40deg);
+    transform-origin: top center;
+    opacity: 0;
+    will-change: transform;
+}
+
+.hero-desc {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.hero-badge {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+}
+
+.hero-actions {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.hero-stats {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* --- Section Reveal (GSAP controlled) --- */
+.gsap-reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    will-change: transform, opacity;
+}
+
+.gsap-reveal-left {
+    opacity: 0;
+    transform: translateX(-80px);
+    will-change: transform, opacity;
+}
+
+.gsap-reveal-right {
+    opacity: 0;
+    transform: translateX(80px);
+    will-change: transform, opacity;
+}
+
+.gsap-reveal-scale {
+    opacity: 0;
+    transform: scale(0.85);
+    will-change: transform, opacity;
+}
+
+/* --- Split Text Chars --- */
+.split-char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(40px) rotateX(-60deg);
+    transform-origin: bottom center;
+}
+
+/* --- Parallax Data Attributes (GSAP controlled) --- */
+[data-speed] {
+    will-change: transform;
+}
+
+/* --- Horizontal Scroll Section --- */
+.horizontal-section {
+    overflow: hidden;
+}
+
+.horizontal-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+}
+
+.horizontal-track .category-card {
+    flex: 0 0 auto;
+    width: min(400px, 80vw);
+    margin-right: 24px;
+}
+
+/* --- Magnetic Nav Links --- */
+.nav-link {
+    will-change: transform;
+}
+
+.nav-link .link-text {
+    display: inline-block;
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+.nav-link:hover .link-text {
+    transform: translateY(-100%);
+}
+
+.nav-link .link-text-hover {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    display: inline-block;
+    color: var(--accent-blue-light);
+}
+
+/* --- Sticky Pin Image Reveal --- */
+.pin-section {
+    position: relative;
+}
+
+.pin-media {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.pin-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.3);
+    will-change: transform;
+}
+
+/* --- Card 3D Perspective Hover --- */
+.category-card {
+    will-change: transform;
+    transform-style: preserve-3d;
+    transition: none;
+}
+
+.category-card .card-content {
+    transform: translateZ(40px);
+}
+
+.category-card .card-image img {
+    transition: transform 0.8s var(--ease-out-expo);
+}
+
+.category-card:hover .card-image img {
+    transform: scale(1.12);
+}
+
+/* --- Plugin Card Stagger Entrance --- */
+.plugin-card {
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+    will-change: transform, opacity;
+}
+
+/* --- Spotlight Cursor Effect --- */
+.spotlight {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+    will-change: transform;
+    mix-blend-mode: screen;
+    top: 0;
+    left: 0;
+}
+
+/* --- Section Title Reveal Mask --- */
+.section-title-mask {
+    overflow: hidden;
+    display: inline-block;
+}
+
+.section-title-mask .mask-inner {
+    display: block;
+    transform: translateY(105%);
+}
+
+/* --- Footer Reveal --- */
+.footer {
+    clip-path: inset(100% 0 0 0);
+    will-change: clip-path;
+}
+
+.footer.revealed {
+    clip-path: inset(0 0 0 0);
+}
+
+/* --- Smooth Image Clip Reveal --- */
+.clip-reveal {
+    clip-path: inset(100% 0 0 0);
+    will-change: clip-path;
+}
+
+.clip-reveal.revealed {
+    clip-path: inset(0 0 0 0);
+}
+
+/* --- Text Marquee --- */
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marqueeScroll 30s linear infinite;
+    gap: 48px;
+}
+
+.marquee-track .marquee-item {
+    flex-shrink: 0;
+    font-size: clamp(14px, 2vw, 20px);
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    white-space: nowrap;
+}
+
+.marquee-track .marquee-dot {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    align-self: center;
+}
+
+@keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.marquee-wrap {
+    overflow: hidden;
+    padding: 24px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 80px;
+}
+
+/* --- Enhanced Custom Cursor v3 --- */
+.cursor-dot {
+    opacity: 0;
+    transition: opacity 0.3s, width 0.4s var(--ease-out-expo), height 0.4s var(--ease-out-expo);
+}
+
+.cursor-ring {
+    opacity: 0;
+    transition: opacity 0.3s, width 0.5s var(--ease-out-expo), height 0.5s var(--ease-out-expo);
+}
+
+body.cursor-ready .cursor-dot,
+body.cursor-ready .cursor-ring {
+    opacity: 1;
+}
+
+/* --- Morph Blobs (parallax-driven) --- */
+.morph-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+}
+
+.morph-blob-1 {
+    width: 700px; height: 700px;
+    background: var(--accent-blue);
+    top: -15%; right: -10%;
+}
+
+.morph-blob-2 {
+    width: 500px; height: 500px;
+    background: var(--accent-cyan);
+    bottom: 10%; left: -8%;
+}
+
+.morph-blob-3 {
+    width: 450px; height: 450px;
+    background: var(--accent-purple);
+    top: 50%; left: 25%;
+}
+
+/* --- Stagger Grid Animation --- */
+.stagger-grid > * {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+/* --- Dark Vignette Overlay --- */
+.vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(8,9,13,0.4) 100%);
+}
+
+/* --- Feature Card Hover Expand --- */
+.feature-card {
+    will-change: transform;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px) !important;
+}
+
+.feature-card .feature-icon {
+    transition: transform 0.6s var(--ease-out-expo);
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.15) rotateZ(-8deg);
+}
