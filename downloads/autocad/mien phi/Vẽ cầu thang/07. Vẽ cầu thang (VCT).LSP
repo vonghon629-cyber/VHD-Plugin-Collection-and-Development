@@ -1,2 +1,0 @@
-;;;************VEŞ CÂÌU THANG*************************
-(defun c:vct( / p c r sb oldos)  (setq    p (getpoint "\nChoòn ğiêÒm ğâÌu tiên:")    c (getdist p "\nNhâòp chiêÌu cao cuÒa bâòc:")    r (getdist p "\nNhâòp chiêÌu rôòng cuÒa bâòc:")    sb (getint "\nNhâòp sôì bâòc:")    oldos (getvar "osmode")  )  (setvar "osmode" 0)    (command ".pline")  (command p)    (repeat sb    (command (strcat "@0," (rtos c)))    (command (strcat "@" (rtos r) ",0"))  )  (command "")  (setvar "osmode" oldos)  (princ))

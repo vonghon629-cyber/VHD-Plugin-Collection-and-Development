@@ -1,5 +1,0 @@
-1.01 
-- Adds ability to inset the capped polygons http://www.youtube.com/watch?v=fRjIPilEj7s
-
-1.0 
-- Initial release http://www.youtube.com/watch?v=3qiSFAeNO6E

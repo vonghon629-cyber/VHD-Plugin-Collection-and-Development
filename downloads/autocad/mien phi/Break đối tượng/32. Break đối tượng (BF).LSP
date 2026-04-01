@@ -1,2 +1,0 @@
-;;;************BREAK ĞÔìI TİÕòNG*************************
-(defun c:BF (/ dt diem)  (setq	dt   (car (entsel "\nChoòn ğôìi tıõòng câÌn chãòt")))  (if dt    (progn      (redraw dt 3)        (setq diem (getpoint "\nChoòn ğiêÒm chãòt: "))      (redraw dt 4)    )  )    (if (and dt diem)        (command ".break" dt diem diem)  )  )
